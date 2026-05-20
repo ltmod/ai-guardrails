@@ -1,0 +1,11 @@
+---
+description: Security and infrastructure — secrets, CI/CD, deployment
+alwaysApply: true
+---
+
+# Security
+
+- Do not read, log, commit, or expose secrets (`.env`, keys, tokens, connection strings, credentials files).
+- Warn if the user asks to commit secret-bearing files.
+- Do not modify CI/CD configs (`.github/workflows`, pipelines, deploy scripts) without explicit user approval.
+- Do not deploy or trigger releases automatically; deployment requires explicit user instruction.

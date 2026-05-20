@@ -1,0 +1,10 @@
+---
+description: Database safety — migrations only, no production SQL
+alwaysApply: true
+---
+
+# Database Safety
+
+- Never execute SQL directly against production databases (including one-off fixes via CLI or MCP).
+- Produce migration scripts only; the user reviews and applies them.
+- Use the project's migration mechanism (e.g. EF Core migrations) instead of ad-hoc DDL in app code or chat-run SQL.

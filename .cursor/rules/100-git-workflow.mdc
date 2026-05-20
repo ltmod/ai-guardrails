@@ -1,0 +1,11 @@
+---
+description: Git workflow — no destructive or force operations
+alwaysApply: true
+---
+
+# Git Workflow
+
+- Do not run destructive git commands (`reset --hard`, `clean -fd`, history-rewriting rebase, etc.) unless the user explicitly requests them.
+- Never force-push (`push --force`, `push -f`) to any branch.
+- Do not skip hooks (`--no-verify`) unless the user explicitly requests it.
+- Do not amend or rewrite commits already pushed without explicit user request.

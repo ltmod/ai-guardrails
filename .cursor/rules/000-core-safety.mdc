@@ -1,0 +1,12 @@
+---
+description: Core safety — scope, confirmation, and risky operations
+alwaysApply: true
+---
+
+# Core Safety
+
+- Do not delete files without explicit user confirmation.
+- Do not implement features without a linked story or task; ask if none exists.
+- Keep changes small and scoped to the current request.
+- Ask before refactoring code outside the current scope.
+- Before risky operations (data loss, irreversible changes, production impact), explain what will happen and wait for confirmation.
