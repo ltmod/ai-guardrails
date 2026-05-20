@@ -1,0 +1,71 @@
+# =============================================================================
+# Secrets — never commit credentials, keys, tokens, or connection strings
+# See .cursor/rules/300-security.mdc
+# =============================================================================
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Generic secret / credential files
+secrets/
+secrets.*
+*.secret
+*.secrets
+credentials.json
+credentials.yaml
+credentials.yml
+*credentials*
+!*credentials*.example
+!*credentials*.sample
+!*credentials*.template
+
+# API keys and tokens
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.asc
+*.gpg
+*.pgp
+
+# Local overrides that often hold secrets
+.env.local
+.env.*.local
+*.local.env
+local.settings.json
+appsettings.Local.json
+appsettings.*.Local.json
+user-secrets.json
+
+# Cloud provider credentials
+.aws/
+azureProfile.json
+.azure/
+.gcloud/
+service-account*.json
+*-service-account.json
+google-credentials.json
+terraform.tfvars
+*.auto.tfvars
+!*.auto.tfvars.example
+!terraform.tfvars.example
+
+# Database connection files
+connectionstrings.config
+*.connectionstrings.json
+
+# IDE / tool caches that may embed tokens
+.npmrc
+.pypirc
+.netrc
+.dbshell
