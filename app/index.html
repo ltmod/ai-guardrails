@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Guardrails</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    :root {
+      --core: #2563eb;
+      --git: #059669;
+      --db: #d97706;
+      --security: #dc2626;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      color: #f8fafc;
+      padding: 3rem 0 3.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .hero .lead {
+      color: #cbd5e1;
+      max-width: 42rem;
+    }
+
+    .hero code {
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.15em 0.4em;
+      border-radius: 0.25rem;
+    }
+
+    .card-guardrail {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-left: 5px solid var(--accent);
+      border-radius: 0.5rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card-guardrail:hover {
+      box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1) !important;
+      transform: translateY(-2px);
+    }
+
+    .card-guardrail--core { --accent: var(--core); }
+    .card-guardrail--git { --accent: var(--git); }
+    .card-guardrail--db { --accent: var(--db); }
+    .card-guardrail--security { --accent: var(--security); }
+
+    .card-guardrail .card-header {
+      background: var(--accent);
+      color: #fff;
+      border-bottom: none;
+      padding: 1rem 1.25rem;
+    }
+
+    .card-guardrail .rule-badge {
+      background: rgba(255, 255, 255, 0.25) !important;
+      color: #fff !important;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .card-guardrail .card-body {
+      padding: 1.25rem;
+    }
+
+    .card-guardrail ul {
+      margin-bottom: 0;
+      padding-left: 1.25rem;
+    }
+
+    .card-guardrail li {
+      margin-bottom: 0.5rem;
+      line-height: 1.45;
+    }
+
+    .card-guardrail li:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-guardrail .source-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--accent);
+    }
+
+    .card-guardrail .source-link:hover {
+      text-decoration: underline;
+    }
+
+    .page-footer {
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #dee2e6;
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <!-- STORY-001 -->
+
+  <header class="hero">
+    <div class="container">
+      <nav class="mb-3">
+        <a href="web-permissions.html" class="link-light text-decoration-none small">Web URL permissions →</a>
+      </nav>
+      <h1 class="display-5 mb-3">AI Guardrails</h1>
+      <p class="lead mb-0">
+        Binding rules for AI agents in this repository. Each card summarizes one always-on rule in <code>.cursor/rules/</code>.
+      </p>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <div class="row row-cols-1 row-cols-lg-2 g-4">
+
+      <div class="col">
+        <article class="card h-100 shadow-sm card-guardrail card-guardrail--core">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-semibold fs-5">Core Safety</span>
+            <span class="badge rule-badge">000</span>
+          </div>
+          <div class="card-body">
+            <p class="text-secondary mb-3">Scope, confirmation, and risky operations.</p>
+            <ul class="small text-body-secondary">
+              <li>Do not delete files without explicit user confirmation.</li>
+              <li>Do not implement features without a linked story or task; ask if none exists.</li>
+              <li>Keep changes small and scoped to the current request.</li>
+              <li>Ask before refactoring code outside the current scope.</li>
+              <li>Before risky operations (data loss, irreversible changes, production impact), explain what will happen and wait for confirmation.</li>
+            </ul>
+            <a href="../.cursor/rules/000-core-safety.mdc" class="source-link">View 000-core-safety.mdc →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col">
+        <article class="card h-100 shadow-sm card-guardrail card-guardrail--git">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-semibold fs-5">Git Workflow</span>
+            <span class="badge rule-badge">100</span>
+          </div>
+          <div class="card-body">
+            <p class="text-secondary mb-3">No destructive or force git operations.</p>
+            <ul class="small text-body-secondary">
+              <li>Do not run destructive git commands (<code>reset --hard</code>, <code>clean -fd</code>, history-rewriting rebase, etc.) unless the user explicitly requests them.</li>
+              <li>Never force-push (<code>push --force</code>, <code>push -f</code>) to any branch.</li>
+              <li>Do not skip hooks (<code>--no-verify</code>) unless the user explicitly requests it.</li>
+              <li>Do not amend or rewrite commits already pushed without explicit user request.</li>
+            </ul>
+            <a href="../.cursor/rules/100-git-workflow.mdc" class="source-link">View 100-git-workflow.mdc →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col">
+        <article class="card h-100 shadow-sm card-guardrail card-guardrail--db">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-semibold fs-5">Database Safety</span>
+            <span class="badge rule-badge">200</span>
+          </div>
+          <div class="card-body">
+            <p class="text-secondary mb-3">Migrations only; no production SQL.</p>
+            <ul class="small text-body-secondary">
+              <li>Never execute SQL directly against production databases (including one-off fixes via CLI or MCP).</li>
+              <li>Produce migration scripts only; the user reviews and applies them.</li>
+              <li>Use the project's migration mechanism (e.g. EF Core migrations) instead of ad-hoc DDL in app code or chat-run SQL.</li>
+            </ul>
+            <a href="../.cursor/rules/200-database-safety.mdc" class="source-link">View 200-database-safety.mdc →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col">
+        <article class="card h-100 shadow-sm card-guardrail card-guardrail--security">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-semibold fs-5">Security</span>
+            <span class="badge rule-badge">300</span>
+          </div>
+          <div class="card-body">
+            <p class="text-secondary mb-3">Secrets, CI/CD, and deployment.</p>
+            <ul class="small text-body-secondary">
+              <li>Do not read, log, commit, or expose secrets (<code>.env</code>, keys, tokens, connection strings, credentials files).</li>
+              <li>Warn if the user asks to commit secret-bearing files.</li>
+              <li>Do not modify CI/CD configs (<code>.github/workflows</code>, pipelines, deploy scripts) without explicit user approval.</li>
+              <li>Do not deploy or trigger releases automatically; deployment requires explicit user instruction.</li>
+            </ul>
+            <a href="../.cursor/rules/300-security.mdc" class="source-link">View 300-security.mdc →</a>
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <footer class="page-footer">
+      <p class="mb-1">Full rule index: <a href="../CLAUDE.md">CLAUDE.md</a> · <a href="web-permissions.html">Web URL permissions</a></p>
+      <p class="mb-0">STORY-001 — <a href="../stories/001-guardrails-cards-page.md">001-guardrails-cards-page.md</a></p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
